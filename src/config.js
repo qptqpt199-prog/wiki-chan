@@ -14,6 +14,11 @@ module.exports = {
     streakExpireMs: 48 * 60 * 60 * 1000, // quá 48 giờ thì mất chuỗi
   },
 
+  coinflip: {
+    minBet: 1,
+    cooldownMs: 5 * 1000, // 5 giây mỗi lượt để chống spam
+  },
+
   leaderboard: {
     size: 10,
     cacheMs: 30 * 1000, // cache API 30 giây

@@ -2,7 +2,7 @@
 
 Bot Discord mini game, tiền tệ **Wiki Chan Coin (WCC)**. Một service Node.js chạy cả bot, API và trang web.
 
-**Lệnh:** `/daily` · `/top` · `/balance`
+**Lệnh:** `/daily` · `/top` · `/balance` · `/tx` (tung xu, cooldown 5 giây)
 
 ## Chạy thử trên máy
 
