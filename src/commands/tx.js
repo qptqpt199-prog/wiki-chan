@@ -46,7 +46,7 @@ module.exports = {
     .addIntegerOption((opt) =>
       opt
         .setName('so_tien')
-        .setDescription('Số Wiki Chan Coin muốn cược')
+        .setDescription('Số Wiki Chan Coin muốn cược(Tối thiểu 100)')
         .setRequired(true)
         .setMinValue(coinflip.minBet)
     ),
