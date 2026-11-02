@@ -17,6 +17,8 @@ module.exports = {
   coinflip: {
     minBet: 1,
     cooldownMs: 5 * 1000, // 5 giây mỗi lượt để chống spam
+    animationFrames: 5, // số khung hình "đang tung" (xấp/ngửa luân phiên)
+    frameMs: 1000, // mỗi khung hình hiện 1 giây => tổng khoảng 5 giây
   },
 
   leaderboard: {
