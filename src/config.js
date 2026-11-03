@@ -30,7 +30,7 @@ module.exports = {
     // multiplier = hệ số nhân trên tiền cược (1 = hoàn tiền cược)
     tiers: [
       { key: 'blue', emoji: '🔵', name: 'Xanh biển', multiplier: 1, chance: 20 },
-      { key: 'green', emoji: '🟢', name: 'Xanh lá', multiplier: 2, chance: 14 },
+      { key: 'black', emoji: '⚫', name: 'Đen', multiplier: 2, chance: 14 },
       { key: 'red', emoji: '🔴', name: 'Đỏ', multiplier: 4, chance: 7 },
     ],
   },
