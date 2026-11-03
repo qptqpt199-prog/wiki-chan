@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { startLoanSweeper } = require('./utils/loans');
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -40,7 +41,8 @@ async function main() {
     console.error('[Lệnh] Đăng ký thất bại:', err.message);
   }
 
-  await client.login(process.env.DISCORD_TOKEN);
+  await client.login(process.env.DISCORD_TOKEN);  
+  startLoanSweeper(client);
 }
 
 main().catch((err) => {
