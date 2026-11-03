@@ -51,7 +51,7 @@
 <body>
   <div class="wrap">
     <header class="hero">
-      <div class="logo">🪙</div>
+      <div class="logo">🌸</div>
       <h1>Wiki Chan</h1>
       <p class="sub">Bot Discord mini game với <b>Wiki Chan Coin (WCC)</b>. Nhận quà mỗi ngày, thử vận may và leo top người giàu nhất liên server!</p>
       <a class="btn" target="_blank" rel="noopener"
@@ -74,18 +74,7 @@
         <div class="card new"><span class="badge">MỚI</span><code class="cmd">/qs</code><p>Quay số 3 ô màu. Ra đủ 3 màu giống nhau để nhận thưởng, trượt thì mất cược.</p></div>
       </div>
     </section>
-
-    <section>
-      <h2>🎰 Bảng thưởng /qs</h2>
-      <p class="lead">Chỉ khi cả 3 ô giống nhau mới có thưởng. Màu càng hiếm thưởng càng lớn.</p>
-      <div class="pay">
-        <div class="card"><div class="ico">🔵🔵🔵</div><div class="mul">x1</div><small>Hoàn tiền cược · hay gặp nhất</small></div>
-        <div class="card"><div class="ico">🟢🟢🟢</div><div class="mul">x2</div><small>Nhân đôi tiền cược</small></div>
-        <div class="card"><div class="ico">🔴🔴🔴</div><div class="mul">x4</div><small>Jackpot · rất hiếm</small></div>
-        <div class="card"><div class="ico">❌</div><div class="mul">x0</div><small>Trượt 1 ô là mất cược</small></div>
-      </div>
-    </section>
-
+    
     <section>
       <h2>👑 Top người giàu nhất</h2>
       <p class="lead" id="updated">Đang tải bảng xếp hạng...</p>
@@ -132,7 +121,7 @@
           name.textContent = u.username; // textContent để tránh chèn mã độc từ tên người dùng
 
           const bal = document.createElement('div'); bal.className = 'bal';
-          bal.textContent = '🪙 ' + fmt(u.balance);
+          bal.textContent = '⚫ ' + fmt(u.balance);
 
           row.append(rank, img, name, bal);
           board.appendChild(row);
