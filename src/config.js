@@ -6,6 +6,19 @@ module.exports = {
     emoji: '🪙',
   },
 
+    loan: {
+    minAmount: 100,
+    maxTotal: 5000, // tổng tiền gốc đang vay tối đa
+    cooldownMs: 5 * 1000,
+    // dailyRate = % lãi mỗi NGÀY (tính dồn theo giờ: dailyRate / 24 mỗi giờ)
+    terms: [
+      { days: 5, dailyRate: 25 },
+      { days: 10, dailyRate: 10 },
+      { days: 30, dailyRate: 5 },
+    ],
+    sweepIntervalMs: 60 * 1000, // quét khoản quá hạn mỗi 60 giây
+  },
+  
   daily: {
     baseReward: 500, // thưởng cơ bản mỗi ngày
     streakBonus: 50, // cộng thêm cho mỗi ngày liên tiếp
