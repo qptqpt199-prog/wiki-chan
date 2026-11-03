@@ -1,4 +1,4 @@
-const { Events } = require('discord.js');
+const { Events, MessageFlags } = require('discord.js');
 
 module.exports = {
   name: Events.InteractionCreate,
@@ -13,7 +13,7 @@ module.exports = {
     } catch (error) {
       console.error(`[Lệnh /${interaction.commandName}] Lỗi:`, error);
 
-      const message = { content: 'Ôi, Wiki Chan gặp lỗi rồi 😢 Bạn thử lại sau nhé!', ephemeral: true };
+      const message = { content: 'Ôi, Wiki Chan gặp lỗi rồi 😢 Bạn thử lại sau nhé!', flags: MessageFlags.Ephemeral };
       try {
         if (interaction.deferred || interaction.replied) {
           await interaction.followUp(message);

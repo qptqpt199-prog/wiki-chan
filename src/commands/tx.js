@@ -1,6 +1,6 @@
 const { randomInt } = require('node:crypto');
 const { setTimeout: sleep } = require('node:timers/promises');
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
 const User = require('../models/User');
 const { coinflip, colors } = require('../config');
 const { getOrCreateUser } = require('../utils/users');
@@ -60,7 +60,7 @@ module.exports = {
       const embed = new EmbedBuilder()
         .setColor(colors.warning)
         .setDescription(`⏳ Từ từ thôi! Chờ **${Math.ceil(wait / 1000)} giây** nữa rồi tung tiếp nhé.`);
-      return interaction.reply({ embeds: [embed], ephemeral: true });
+      return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
     }
 
     const choice = interaction.options.getString('lua_chon');
@@ -75,25 +75,25 @@ module.exports = {
         .setDescription(
           `Bạn chỉ có ${formatCoin(user.balance)} mà muốn cược ${formatCoin(bet)}.\nDùng \`/daily\` để nhận thêm coin nhé!`
         );
-      return interaction.reply({ embeds: [embed], ephemeral: true });
-    }
-
-    // Bước 1: trừ tiền cược ngay (một thao tác, có điều kiện đủ số dư)
-    const held = await User.findOneAndUpdate(
-      { userId: user.userId, balance: { $gte: bet } },
-      { $inc: { balance: -bet } },
-      { new: true }
-    );
-
-    if (!held) {
-      return interaction.reply({ content: 'Số dư của bạn vừa thay đổi, hãy thử lại nhé!', ephemeral: true });
+      return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
     }
 
     // Kết quả được quyết định ngay (ngẫu nhiên an toàn) nhưng chỉ công bố sau hoạt ảnh
     const result = randomInt(2) === 0 ? 'sap' : 'ngua';
     const won = result === choice;
 
-    // Bước 2: hoạt ảnh, sửa tin nhắn liên tục giữa xấp và ngửa
+    // Trừ cược + trả thưởng trong MỘT thao tác duy nhất, trước khi chạy hoạt ảnh.
+    // Nhờ vậy dù bot khởi động lại giữa chừng, người chơi cũng không bị mất tiền oan.
+    const settled = await User.findOneAndUpdate(
+      { userId: user.userId, balance: { $gte: bet } },
+      { $inc: { balance: won ? bet : -bet, totalEarned: won ? bet : 0 } },
+      { new: true }
+    );
+    if (!settled) {
+      return interaction.reply({ content: 'Số dư của bạn vừa thay đổi, hãy thử lại nhé!', flags: MessageFlags.Ephemeral });
+    }
+
+    // Hoạt ảnh, sửa tin nhắn liên tục giữa xấp và ngửa
     await interaction.reply({ embeds: [spinningEmbed(interaction.user, 0, choice, bet)] });
 
     for (let frame = 1; frame < coinflip.animationFrames; frame++) {
@@ -106,27 +106,9 @@ module.exports = {
     }
     await sleep(coinflip.frameMs);
 
-    // Bước 3: trả thưởng nếu thắng (nhận lại tiền cược + tiền lãi = gấp đôi)
-    let balance = held.balance;
-    if (won) {
-      let paid = null;
-      for (let attempt = 0; attempt < 3 && !paid; attempt++) {
-        try {
-          paid = await User.findOneAndUpdate(
-            { userId: user.userId },
-            { $inc: { balance: bet * 2, totalEarned: bet } },
-            { new: true }
-          );
-        } catch (err) {
-          console.error(`[/tx] Trả thưởng lỗi (lần ${attempt + 1}):`, err.message);
-          await sleep(500);
-        }
-      }
-      if (paid) balance = paid.balance;
-      else console.error(`[/tx] KHÔNG trả được thưởng ${bet * 2} cho ${user.userId}`);
-    }
+    const balance = settled.balance;
 
-    // Bước 4: thay tin nhắn "đang tung" bằng kết quả cuối cùng
+    // Thay tin nhắn "đang tung" bằng kết quả cuối cùng
     const picked = SIDES[choice];
     const landed = SIDES[result];
 

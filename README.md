@@ -2,7 +2,7 @@
 
 Bot Discord mini game, tiền tệ **Wiki Chan Coin (WCC)**. Một service Node.js chạy cả bot, API và trang web.
 
-**Lệnh:** `/daily` · `/top` · `/balance` · `/tx` (tung xu, cooldown 5 giây)
+**Lệnh:** `/daily` · `/top` · `/balance` · `/tx` (tung xu) · `/qs` (quay số 3 ô) — cooldown 5 giây
 
 ## Chạy thử trên máy
 
@@ -18,7 +18,7 @@ npm start
 |---|---|
 | `DISCORD_TOKEN` | Token bot (Developer Portal → Bot → Reset Token) |
 | `CLIENT_ID` | `1566673824563339266` |
-| `MONGODB_URI` | `mongodb+srv://USER:PASS@cluster0.ekjov3s.mongodb.net/wikichan?retryWrites=true&w=majority` |
+| `MONGODB_URI` | `mongodb+srv://USER:PASS@CLUSTER.mongodb.net/wikichan?retryWrites=true&w=majority` |
 | `GUILD_ID` | (tùy chọn) ID server test để lệnh có hiệu lực ngay |
 
 ⚠️ Không commit file `.env`. Nếu mật khẩu có ký tự đặc biệt (`@ : / ?`), phải mã hóa bằng `encodeURIComponent`.

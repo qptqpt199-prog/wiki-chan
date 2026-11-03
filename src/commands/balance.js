@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
 const User = require('../models/User');
 const { colors, currency } = require('../config');
 const { getOrCreateUser } = require('../utils/users');
@@ -16,7 +16,7 @@ module.exports = {
     const target = interaction.options.getUser('nguoi_choi') || interaction.user;
 
     if (target.bot) {
-      return interaction.reply({ content: 'Bot thì không có ví đâu nha 🤖', ephemeral: true });
+      return interaction.reply({ content: 'Bot thì không có ví đâu nha 🤖', flags: MessageFlags.Ephemeral });
     }
 
     // Chỉ ghi nhận người dùng khi xem ví của chính mình

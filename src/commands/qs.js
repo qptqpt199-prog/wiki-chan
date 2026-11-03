@@ -56,6 +56,9 @@ function spinningEmbed(user, frame, bet, final) {
 }
 
 module.exports = {
+  rollOutcome,
+  buildReels,
+
   data: new SlashCommandBuilder()
     .setName('qs')
     .setDescription('Quay số: ra đủ 3 màu giống nhau để nhận thưởng (xanh biển x1, xanh lá x2, đỏ x4)')

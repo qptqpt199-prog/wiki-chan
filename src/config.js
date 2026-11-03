@@ -21,19 +21,6 @@ module.exports = {
     frameMs: 1000, // mỗi khung hình hiện 1 giây => tổng khoảng 5 giây
   },
 
-  leaderboard: {
-    size: 10,
-    cacheMs: 30 * 1000, // cache API 30 giây
-  },
-
-  colors: {
-    primary: 0xf9a8d4, // hồng pastel
-    success: 0xc4b5fd, // tím pastel
-    warning: 0xfcd34d,
-    error: 0xfca5a5,
-  },
-};
-
   quaySo: {
     minBet: 100,
     cooldownMs: 5 * 1000,
@@ -48,4 +35,15 @@ module.exports = {
     ],
   },
 
+  leaderboard: {
+    size: 10,
+    cacheMs: 30 * 1000, // cache API 30 giây
+  },
 
+  colors: {
+    primary: 0xf9a8d4, // hồng pastel
+    success: 0xc4b5fd, // tím pastel
+    warning: 0xfcd34d,
+    error: 0xfca5a5,
+  },
+};

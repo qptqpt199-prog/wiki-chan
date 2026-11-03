@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
 const User = require('../models/User');
 const { daily, colors, currency } = require('../config');
 const { getOrCreateUser } = require('../utils/users');
@@ -23,7 +23,7 @@ module.exports = {
         .setDescription(
           `Wiki Chan đã phát quà cho bạn rồi nè.\nHãy quay lại sau **${formatDuration(remaining)}** nhé!`
         );
-      return interaction.reply({ embeds: [embed], ephemeral: true });
+      return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
     }
 
     // Tính chuỗi ngày liên tiếp
@@ -46,7 +46,7 @@ module.exports = {
     if (!updated) {
       return interaction.reply({
         content: 'Có gì đó chưa ổn, bạn thử lại sau vài giây nhé!',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
 
