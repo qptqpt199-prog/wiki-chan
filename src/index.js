@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { startLoanSweeper } = require('./utils/loans');
+const { startCompanySweeper } = require('./utils/company');
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
