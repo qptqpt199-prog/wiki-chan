@@ -18,6 +18,64 @@ module.exports = {
     ],
     sweepIntervalMs: 60 * 1000, // quét khoản quá hạn mỗi 60 giây
   },
+
+    company: {
+    cooldownMs: 5 * 1000,
+    maxLevel: 10,
+    bankruptcyLimit: -50000, // ví cá nhân <= mức này thì phá sản
+    warnLevels: [-10000, -25000], // DM cảnh báo khi ví chạm các mức này
+    bankruptBanDays: 3,
+    resetWalletTo: 0, // phá sản: ví đang âm được xóa nợ về mức này
+    failRefundRate: 0.3, // khởi nghiệp thất bại: hoàn lại 30% vốn
+    historyDays: 14, // số bill lưu lại để xem
+    maxCatchUpDays: 60, // số ngày bill tối đa xử lý mỗi lượt khi bot tắt lâu
+    sweepIntervalMs: 60 * 1000,
+
+    multiIndustry: { successMult: 0.8, revenueMult: 1.1, eventRiskMult: 0.8 },
+
+    // Áp lực cạnh tranh: mỗi ngày không nâng cấp
+    pressure: { perIdleDay: 0.02, max: 0.8 },
+
+    // Chi phí nâng cấp = vốn * basePct * growth^cấp_hiện_tại (tối thiểu min)
+    upgradeCost: { basePct: 0.015, growth: 1.5, min: 200 },
+
+    scales: [
+      { key: 'micro', name: 'Doanh nghiệp siêu nhỏ', multiplier: 1 },
+      { key: 'small', name: 'Doanh nghiệp nhỏ', multiplier: 2 },
+      { key: 'medium', name: 'Doanh nghiệp vừa', multiplier: 3 },
+      { key: 'large', name: 'Doanh nghiệp lớn', multiplier: 5 },
+    ],
+
+    // revenueRate/billRate = % vốn mỗi NGÀY. volatility = xác suất có sự kiện mỗi ngày.
+    industries: [
+      { key: 'anvat', emoji: '🍢', name: 'Ăn vặt', capital: 5000, revenueRate: 0.045, billRate: 0.015, successRate: 0.9, volatility: 0.15 },
+      { key: 'cafe', emoji: '☕', name: 'Cafe', capital: 10000, revenueRate: 0.05, billRate: 0.02, successRate: 0.85, volatility: 0.2 },
+      { key: 'thoitrang', emoji: '👗', name: 'Thời trang', capital: 15000, revenueRate: 0.06, billRate: 0.025, successRate: 0.8, volatility: 0.3 },
+      { key: 'vantai', emoji: '🚚', name: 'Vận tải', capital: 20000, revenueRate: 0.055, billRate: 0.02, successRate: 0.85, volatility: 0.3 },
+      { key: 'congnghe', emoji: '💻', name: 'Công nghệ', capital: 20000, revenueRate: 0.08, billRate: 0.035, successRate: 0.7, volatility: 0.45 },
+    ],
+
+    // Muốn thêm thuộc tính mới: thêm 1 dòng vào đây (và thêm vào lệnh sẽ tự có lựa chọn).
+    // revenuePerLevel / billPerLevel: cộng dồn theo cấp
+    // shieldPerLevel: giảm áp lực cạnh tranh | riskPerLevel: giảm xác suất sự kiện xấu
+    // decayEvery: cứ mỗi N ngày bỏ bê thì tụt 1 cấp (bỏ trống = không tụt)
+    upgrades: [
+      { key: 'scale', emoji: '🏢', name: 'Quy mô', desc: '+4% doanh thu, +3% bill mỗi cấp', revenuePerLevel: 0.04, billPerLevel: 0.03 },
+      { key: 'quality', emoji: '⭐', name: 'Chất lượng', desc: '+3% doanh thu, +1% bill mỗi cấp. Tụt 1 cấp / 5 ngày bỏ bê', revenuePerLevel: 0.03, billPerLevel: 0.01, decayEvery: 5 },
+      { key: 'ads', emoji: '📣', name: 'Quảng cáo', desc: '+2% doanh thu mỗi cấp. Tụt 1 cấp / 2 ngày bỏ bê', revenuePerLevel: 0.02, decayEvery: 2 },
+      { key: 'competition', emoji: '🛡️', name: 'Cạnh tranh', desc: 'Giảm 8% áp lực đối thủ mỗi cấp', shieldPerLevel: 0.08 },
+      { key: 'partnership', emoji: '🤝', name: 'Hợp tác', desc: '-4% bill, -5% rủi ro sự kiện xấu mỗi cấp. Tụt 1 cấp / 5 ngày bỏ bê', billPerLevel: -0.04, riskPerLevel: 0.05, decayEvery: 5 },
+    ],
+
+    // base: tính theo doanh thu ngày hoặc bill ngày. pct: tỉ lệ.
+    events: [
+      { key: 'viral', kind: 'good', name: 'Video quảng cáo bùng nổ 🔥', base: 'revenue', pct: 0.6 },
+      { key: 'bigorder', kind: 'good', name: 'Có đơn hàng lớn 📦', base: 'revenue', pct: 0.4 },
+      { key: 'inspection', kind: 'bad', name: 'Bị đoàn kiểm tra phạt 🚨', base: 'bill', pct: 0.5 },
+      { key: 'competitor', kind: 'bad', name: 'Đối thủ khai trương gần đó 🏪', base: 'revenue', pct: 0.4 },
+      { key: 'supply', kind: 'bad', name: 'Đứt chuỗi cung ứng 🚧', base: 'bill', pct: 0.3 },
+    ],
+  },
   
   daily: {
     baseReward: 500, // thưởng cơ bản mỗi ngày
