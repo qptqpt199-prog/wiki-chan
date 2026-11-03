@@ -44,6 +44,7 @@ async function main() {
 
   await client.login(process.env.DISCORD_TOKEN);  
   startLoanSweeper(client);
+  startCompanySweeper(client);
 }
 
 main().catch((err) => {
