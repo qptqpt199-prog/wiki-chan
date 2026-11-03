@@ -33,3 +33,19 @@ module.exports = {
     error: 0xfca5a5,
   },
 };
+
+  quaySo: {
+    minBet: 100,
+    cooldownMs: 5 * 1000,
+    animationFrames: 5,
+    frameMs: 1000,
+    // chance = % ra bộ 3 giống nhau. Phần còn lại (100 - tổng) là thua.
+    // multiplier = hệ số nhân trên tiền cược (1 = hoàn tiền cược)
+    tiers: [
+      { key: 'blue', emoji: '🔵', name: 'Xanh biển', multiplier: 1, chance: 20 },
+      { key: 'green', emoji: '🟢', name: 'Xanh lá', multiplier: 2, chance: 14 },
+      { key: 'red', emoji: '🔴', name: 'Đỏ', multiplier: 4, chance: 7 },
+    ],
+  },
+
+
