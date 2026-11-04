@@ -21,7 +21,7 @@ module.exports = {
 
     company: {
     cooldownMs: 5 * 1000,
-    maxLevel: 10,
+    maxLevel: 200,
     bankruptcyLimit: -50000, // ví cá nhân <= mức này thì phá sản
     warnLevels: [-10000, -25000], // DM cảnh báo khi ví chạm các mức này
     bankruptBanDays: 3,
@@ -60,20 +60,27 @@ module.exports = {
     // shieldPerLevel: giảm áp lực cạnh tranh | riskPerLevel: giảm xác suất sự kiện xấu
     // decayEvery: cứ mỗi N ngày bỏ bê thì tụt 1 cấp (bỏ trống = không tụt)
     upgrades: [
-      { key: 'scale', emoji: '🏢', name: 'Quy mô', desc: '+4% doanh thu, +3% bill mỗi cấp', revenuePerLevel: 0.04, billPerLevel: 0.03 },
-      { key: 'quality', emoji: '⭐', name: 'Chất lượng', desc: '+3% doanh thu, +1% bill mỗi cấp. Tụt 1 cấp / 5 ngày bỏ bê', revenuePerLevel: 0.03, billPerLevel: 0.01, decayEvery: 5 },
-      { key: 'ads', emoji: '📣', name: 'Quảng cáo', desc: '+2% doanh thu mỗi cấp. Tụt 1 cấp / 2 ngày bỏ bê', revenuePerLevel: 0.02, decayEvery: 2 },
-      { key: 'competition', emoji: '🛡️', name: 'Cạnh tranh', desc: 'Giảm 8% áp lực đối thủ mỗi cấp', shieldPerLevel: 0.08 },
+      { key: 'scale', emoji: '🏢', name: 'Quy mô', desc: '+8% doanh thu, +5% bill mỗi cấp', revenuePerLevel: 0.08, billPerLevel: 0.05 },
+      { key: 'quality', emoji: '⭐', name: 'Chất lượng', desc: '+6% doanh thu, +2% bill mỗi cấp. Tụt 1 cấp / 5 ngày bỏ bê', revenuePerLevel: 0.06, billPerLevel: 0.02, decayEvery: 5 },
+      { key: 'ads', emoji: '📣', name: 'Quảng cáo', desc: '+5% doanh thu mỗi cấp. Tụt 1 cấp / 2 ngày bỏ bê', revenuePerLevel: 0.05, decayEvery: 2 },
+      { key: 'competition', emoji: '🛡️', name: 'Cạnh tranh', desc: 'Giảm 9% áp lực đối thủ mỗi cấp', shieldPerLevel: 0.09 },
       { key: 'partnership', emoji: '🤝', name: 'Hợp tác', desc: '-4% bill, -5% rủi ro sự kiện xấu mỗi cấp. Tụt 1 cấp / 5 ngày bỏ bê', billPerLevel: -0.04, riskPerLevel: 0.05, decayEvery: 5 },
     ],
 
     // base: tính theo doanh thu ngày hoặc bill ngày. pct: tỉ lệ.
     events: [
       { key: 'viral', kind: 'good', name: 'Video quảng cáo bùng nổ 🔥', base: 'revenue', pct: 0.6 },
+      { key: 'kol_endorse', kind: 'good', name: 'Người nổi tiếng đánh giá sản phẩm 🌟', base: 'revenue', pct: 0.35 },
+      { key: 'organic_trend', kind: 'good', name: 'Lọt xu hướng tìm kiếm tự nhiên 📈', base: 'revenue', pct: 0.20 },
       { key: 'bigorder', kind: 'good', name: 'Có đơn hàng lớn 📦', base: 'revenue', pct: 0.4 },
       { key: 'inspection', kind: 'bad', name: 'Bị đoàn kiểm tra phạt 🚨', base: 'bill', pct: 0.5 },
       { key: 'competitor', kind: 'bad', name: 'Đối thủ khai trương gần đó 🏪', base: 'revenue', pct: 0.4 },
       { key: 'supply', kind: 'bad', name: 'Đứt chuỗi cung ứng 🚧', base: 'bill', pct: 0.3 },
+      { key: 'server_crash', kind: 'bad', name: 'Sập hệ thống giờ cao điểm 📉', base: 'revenue', pct: 0.40 },
+      { key: 'ad_policy_ban', kind: 'bad', name: 'Tài khoản quảng cáo bị khóa tạm thời 🚫', base: 'revenue', pct: 0.25 },
+      { key: 'competitor_price_war', kind: 'bad', name: 'Đối thủ cạnh tranh phá giá thị trường ⚔️', base: 'revenue', pct: 0.15 },
+      { key: 'shipping_delay', kind: 'bad', name: 'Khủng hoảng logistics, giao hàng trễ 📦', base: 'revenue', pct: 0.10 },
+      { key: 'bad_review_storm', kind: 'bad', name: 'Bão đánh giá 1 sao từ đối thủ 💔', base: 'revenue', pct: 0.30 }
     ],
   },
   
