@@ -65,6 +65,7 @@ module.exports = {
       { key: 'ads', emoji: '📣', name: 'Quảng cáo', desc: '+5% doanh thu mỗi cấp. Tụt 1 cấp / 2 ngày bỏ bê', revenuePerLevel: 0.05, decayEvery: 2 },
       { key: 'competition', emoji: '🛡️', name: 'Cạnh tranh', desc: 'Giảm 9% áp lực đối thủ mỗi cấp', shieldPerLevel: 0.09 },
       { key: 'partnership', emoji: '🤝', name: 'Hợp tác', desc: '-4% bill, -5% rủi ro sự kiện xấu mỗi cấp. Tụt 1 cấp / 5 ngày bỏ bê', billPerLevel: -0.04, riskPerLevel: 0.05, decayEvery: 5 },
+      { key: 'scale', emoji: '🚚', name: 'Nhà cung cấp', desc: '+1% doanh thu, -5% bill mỗi cấp', revenuePerLevel: 0.01, billPerLevel: -0.05 },
     ],
 
     // base: tính theo doanh thu ngày hoặc bill ngày. pct: tỉ lệ.
